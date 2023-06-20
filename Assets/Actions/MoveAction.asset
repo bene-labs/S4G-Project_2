@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c45828ac3b49464688d1b5afc1f33eb, type: 3}
   m_Name: MoveAction
   m_EditorClassIdentifier: 
-  animationName: '!!!!REPLACE!!!'
+  animationName: '!!!!REPLACE!!!!EinsEinsElf!ICHMAINSERNST'
   uses: 0
   range: 0

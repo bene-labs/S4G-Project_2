@@ -6,7 +6,7 @@ public class Action : ScriptableObject
 {
     [Header("Action")]
     [SerializeField]
-    private string animationName = "!!!!REPLACE!!!";
+    private string animationName = "!!!!REPLACE!!!!EinsEinsElf!ICHMAINSERNST";
     [SerializeField]
     private int uses = 0;
 
