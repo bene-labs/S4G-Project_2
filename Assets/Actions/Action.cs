@@ -29,7 +29,7 @@ public class Action : ScriptableObject
 
     public virtual void Perform(Unit caster)
     {
-       
+        AfterPerform();
     }
 
     public virtual void Preview()
@@ -37,12 +37,12 @@ public class Action : ScriptableObject
 
     }
 
-    public void AfterPerform()
+    private void AfterPerform()
     {
         uses--;
     }
 
-    private bool HasUsesLeft()
+    public bool HasUsesLeft()
     {
         return uses > 0;
     }

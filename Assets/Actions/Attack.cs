@@ -8,11 +8,9 @@ public class Attack : Action
     [SerializeField]
     private int damage;
     [SerializeField]
-    private int healing;
-    [SerializeField]
     private int range;
 
-    public virtual List<Unit> GetTargets()
+    protected virtual List<Unit> GetTargets()
     {
         //default target is unit under the mouse cursor
 
