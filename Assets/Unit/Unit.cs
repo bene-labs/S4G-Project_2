@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Unit : MonoBehaviour
 {
+    [Header("Action")]
     private Action[] availbleActions;
     [SerializeField] private Action selectedAction;
 
@@ -14,15 +16,20 @@ public class Unit : MonoBehaviour
 
     public OnSelect onSelected;
 
+    [Header("Health")]
     [SerializeField] int maxHp = 10;
     private int currentHp;
 
     private NavMeshAgent m_navMeshAgent;
+
+    [Header("Controls")]
+    [SerializeField] private InputAction actionInput;
     
     private void Awake()
     {
         currentHp = maxHp;
         m_navMeshAgent = GetComponent<NavMeshAgent>();
+        actionInput.performed += PerformSelectedAction;
     }
 
     // Update is called once per frame
@@ -46,7 +53,7 @@ public class Unit : MonoBehaviour
 
     }
 
-    void PerformSelectedAction()
+    void PerformSelectedAction(InputAction.CallbackContext callbackContext)
     {
         selectedAction.Perform();
     }
@@ -62,7 +69,11 @@ public class Unit : MonoBehaviour
     void TakeDamage(int amount)
     {
         currentHp -= amount;
-
+        if (currentHp <= 0)
+        {
+            currentHp = 0;
+            Die();
+        }
     }
 
     void Die()
