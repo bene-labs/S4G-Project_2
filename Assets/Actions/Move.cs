@@ -31,7 +31,7 @@ public class Move : Action
             return;
         }
 
-        PathFinder.Instance.CalculatePath(caster.transform.position, GetTarget(), Mathf.Infinity);
+        PathFinder.Instance.CalculatePath(caster.transform.position, GetTarget(), range);
         PathFinder.Instance.RenderPath();
         base.Preview(caster);
     }
