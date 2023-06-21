@@ -55,7 +55,7 @@ public class Unit : MonoBehaviour
 
     void PerformSelectedAction(InputAction.CallbackContext callbackContext)
     {
-        selectedAction.Perform();
+        selectedAction.Perform(this);
     }
 
     void RestoreActions()
