@@ -11,4 +11,15 @@ public class Attack : Action
     private int healing;
     [SerializeField]
     private int range;
+
+    public virtual List<float> GetTargets()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if(Physics.Raycast(ray.origin, ray.direction, out hit) && hit.transform.tag != "Obstacle")
+        {
+            return null ; //new unit list
+        }
+        return null; //new empty unit list
+    }
 }
