@@ -1,21 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 
 [CreateAssetMenu(fileName = "MoveAction", menuName = "Actions/Move", order = 1)]
 public class Move : Action
 {
     [Header("Move")]
-    [SerializeField]
-    private int range;
+    [SerializeField] private int range;
 
-    public override void Perform(Unit caster)
+    public override void SetUp()
     {
-        caster.Move(GetTarget());
+        base.SetUp();
+        maxActionPoints = range;
+        availibleActionPoints = maxActionPoints;
+    }
 
+    public override bool Perform(Unit caster)
+    {
+        if (PathFinder.Instance.IsPathValid())
+            availibleActionPoints -= caster.Move(GetTarget());
+        else
+            return false;
         base.Perform(caster);
+        return true;
     }
 
     public override void Preview(Unit caster)
@@ -42,5 +47,10 @@ public class Move : Action
         }
 
         return new Vector3();
+    }
+
+    public override void RestoreUse()
+    {
+        uses = maxUses;
     }
 }

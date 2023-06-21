@@ -1,25 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Action : ScriptableObject
 {
     [Header("Action")]
-    [SerializeField]
-    private string animationName = "!!!!REPLACE!!!!EinsEinsElf!ICHMAINESERNST";
-    [SerializeField]
-    private int uses = 0;
+    [SerializeField] protected string animationName = "!!!!REPLACE!!!!EinsEinsElf!ICHMAINESERNST";
+    [SerializeField] protected int maxUses = 0;
+    protected int uses = 0;
+    public int Uses => uses;
+    [SerializeField] protected float maxActionPoints;
+    protected float availibleActionPoints;
 
-    private int MaxUses = 0;
-
-    public void SetUp()
+    public virtual void SetUp()
     {
-        MaxUses = uses;
+        uses = maxUses;
+        availibleActionPoints = maxActionPoints;
     }
 
-    public void RestoreUse()
+    public virtual void RestoreUse()
     {
-        uses = Mathf.Clamp(uses + 1, 0, MaxUses);
+        uses = Mathf.Clamp(uses + 1, 0, maxUses);
     }
 
     public string GetAnimationName()
@@ -27,9 +29,10 @@ public class Action : ScriptableObject
         return animationName;
     }
 
-    public virtual void Perform(Unit caster)
+    public virtual bool Perform(Unit caster)
     {
         AfterPerform();
+        return true;
     }
 
     public virtual void Preview(Unit caster)
@@ -42,8 +45,8 @@ public class Action : ScriptableObject
         uses--;
     }
 
-    public bool HasUsesLeft()
+    public bool IsUsable()
     {
-        return uses > 0;
+        return uses > 0 && availibleActionPoints > 0;
     }
 }
