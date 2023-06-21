@@ -6,7 +6,7 @@ public class Action : ScriptableObject
 {
     [Header("Action")]
     [SerializeField]
-    private string animationName = "!!!!REPLACE!!!!EinsEinsElf!ICHMAINSERNST";
+    private string animationName = "!!!!REPLACE!!!!EinsEinsElf!ICHMAINESERNST";
     [SerializeField]
     private int uses = 0;
 
@@ -46,12 +46,4 @@ public class Action : ScriptableObject
     {
         return uses > 0;
     }
-
-    public virtual List<float> GetTargets()
-    {
-        Debug.LogError("Misses default list for unit targets list");
-        return new List<float>();
-    }
-
-
 }
