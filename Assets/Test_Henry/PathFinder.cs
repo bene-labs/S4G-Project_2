@@ -10,12 +10,19 @@ public class PathFinder : MonoBehaviour
     public List<Vector3> validPathPoints;
     public List<Vector3> invalidPathPoints;
     public float lastMousePosition;
-    private bool pathValid;
+    private bool pathValid = false;
+    private float pathDistance;
 
     private NavMeshPath navMeshPath;
     private LineRenderer lineRenderer;
 
     [SerializeField] private LayerMask groundLayer;
+
+    [SerializeField] private Color validColor;
+    [SerializeField] private Color invalidColor;
+    private Gradient colorGradient;
+
+    [SerializeField] private float arrowSize;
 
     [SerializeField] private float width;
     [SerializeField] private float heightOffset;
@@ -39,6 +46,10 @@ public class PathFinder : MonoBehaviour
         }
         navMeshPath = new NavMeshPath();
         lineRenderer = GetComponent<LineRenderer>();
+
+        //lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
+
+        lineRenderer.material.SetColor("_Color", validColor);
     }
 
     public void CalculatePath(Vector3 startPoint, Vector3 endPoint, float maxDistance)
@@ -54,6 +65,7 @@ public class PathFinder : MonoBehaviour
             float currentDistance = 0f;
             float distanceStep;
 
+            pathValid = true;
             ClearPath();
 
             validPathPoints.Add(navMeshPath.corners[0]);
@@ -65,25 +77,34 @@ public class PathFinder : MonoBehaviour
                 {
                     currentDistance += distanceStep;
                     validPathPoints.Add(navMeshPath.corners[i]);
+                    pathDistance = currentDistance;
                 }
                 else
                 {
+                    pathValid = false;
+
                     currentDistance += distanceStep;
                     distanceStep = currentDistance - maxDistance;
-                    validPathPoints.Add((navMeshPath.corners[i] - navMeshPath.corners[i]).normalized * distanceStep);
-                    invalidPathPoints.Add((navMeshPath.corners[i] - navMeshPath.corners[i]).normalized * distanceStep);
+                    validPathPoints.Add((navMeshPath.corners[i] - navMeshPath.corners[i-1]).normalized * distanceStep + navMeshPath.corners[i - 1]);
+                    invalidPathPoints.Add((navMeshPath.corners[i] - navMeshPath.corners[i-1]).normalized * distanceStep + navMeshPath.corners[i - 1]);
                     invalidPathPoints.Add(navMeshPath.corners[i]);
 
-                    if(i < navMeshPath.corners.Length)
+                    currentDistance += distanceStep;
+
+                    if(i+1 < navMeshPath.corners.Length)
                     {
                         for (int k = i + 1; k < navMeshPath.corners.Length; k++)
                         {
+                            currentDistance += Vector3.Distance(navMeshPath.corners[k - 1], navMeshPath.corners[k]);
                             invalidPathPoints.Add(navMeshPath.corners[k]);
                         }
                     }
+                    pathDistance = currentDistance;
                     break;
                 }
             }
+            if (validPathPoints.Count == 0)
+                pathValid = false;
         }
     }
     public bool IsPathValid()
@@ -100,11 +121,16 @@ public class PathFinder : MonoBehaviour
         //    , new Keyframe(arrowStartLength + 0.01f, 1f)
         //    , new Keyframe(1, 0f));
         //lineRenderer.widthCurve = curve;
+
+        //colorGradient = new Gradient();
+        //colorGradient.SetKeys(new GradientColorKey[] { new GradientColorKey(validColor, 0.0f), new GradientColorKey(validColor, ), new GradientColorKey(invalidColor, 1f), new GradientColorKey(invalidColor, 1f) },
+        //                      new GradientAlphaKey[] { new GradientAlphaKey(1f, 1f), new GradientAlphaKey(1f, 1f) });
+        //lineRenderer.colorGradient = colorGradient;
+
         lineRenderer.widthMultiplier = width;
         lineRenderer.positionCount = validPathPoints.Count;
         for (int i = 0; i < validPathPoints.Count; i++)
         {
-
             lineRenderer.SetPosition(i, new Vector3(validPathPoints[i].x, validPathPoints[i].y + heightOffset, validPathPoints[i].z));
         }
     }
