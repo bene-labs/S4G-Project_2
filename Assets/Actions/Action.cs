@@ -13,6 +13,20 @@ public class Action : ScriptableObject
     [SerializeField] protected float maxActionPoints;
     protected float availibleActionPoints;
 
+    // todo: rework
+    protected bool isLocked = false;
+
+    public bool Locked
+    {
+        set
+        {
+            if (value == false)
+                AfterPerform();
+            isLocked = value;
+        }
+        get => isLocked;
+    }
+    
     public virtual void SetUp()
     {
         uses = maxUses;

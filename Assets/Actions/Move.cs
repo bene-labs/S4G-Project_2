@@ -11,15 +11,22 @@ public class Move : Action
         base.SetUp();
         maxActionPoints = range;
         availibleActionPoints = maxActionPoints;
+        name = "Move";
     }
 
     public override bool Perform(Unit caster)
     {
-        if (PathFinder.Instance.IsPathValid())
-            availibleActionPoints -= caster.Move(GetTarget());
-        else
+        if (isLocked)
             return false;
-        base.Perform(caster);
+
+        if (PathFinder.Instance.IsPathValid())
+        {
+            availibleActionPoints -= caster.Move(GetTarget());
+            isLocked = true;
+        } else
+            return false;
+        // todo: rework
+        //base.Perform(caster);
         return true;
     }
 
@@ -40,8 +47,7 @@ public class Move : Action
     {
         //get point that's under the mouse
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray.origin, ray.direction, out hit) && hit.transform.tag != "Obstacle")
+        if (Physics.Raycast(ray.origin, ray.direction, out var hit) && hit.transform.tag != "Obstacle")
         {
             return hit.point;
         }

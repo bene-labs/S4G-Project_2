@@ -12,7 +12,7 @@ public class Unit : MonoBehaviour
     [Header("Action")]
     [SerializeField] private List<Action> availableActions;
     [SerializeField] private Action selectedAction;
-
+    
     public delegate void OnSelect();
 
     public OnSelect onSelected;
@@ -49,6 +49,12 @@ public class Unit : MonoBehaviour
 
     public void SelectedUpdate()
     {
+        if (selectedAction.Locked && selectedAction.name == "Move")
+        {
+            if (m_navMeshAgent.remainingDistance <= 0.01f)
+                selectedAction.Locked = false;
+        }
+        
         if (Input.GetMouseButtonDown(0))
         {
             PerformSelectedAction();
