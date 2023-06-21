@@ -18,9 +18,12 @@ public class PathFinder : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     [SerializeField] private float width;
+    [SerializeField] private float heightOffset;
 
     // variables for testing
     [SerializeField] private float moveRange;
+
+
 
 
 
@@ -53,7 +56,7 @@ public class PathFinder : MonoBehaviour
 
             ClearPath();
 
-            validPathPoints.Add(startPoint);
+            validPathPoints.Add(navMeshPath.corners[0]);
 
             for (int i = 1; i < navMeshPath.corners.Length; i++)
             {
@@ -98,12 +101,17 @@ public class PathFinder : MonoBehaviour
         //lineRenderer.widthCurve = curve;
         lineRenderer.widthMultiplier = width;
         lineRenderer.positionCount = validPathPoints.Count;
-        lineRenderer.SetPositions(validPathPoints.ToArray());
+        for (int i = 0; i < validPathPoints.Count; i++)
+        {
+
+            lineRenderer.SetPosition(i, new Vector3(validPathPoints[i].x, validPathPoints[i].y + heightOffset, validPathPoints[i].z));
+        }
     }
 
     //partially clear for performance?
     private void ClearPath() 
     {
+        lineRenderer.SetPositions(new Vector3[0]);
         validPathPoints.Clear();
         invalidPathPoints.Clear();
     }
