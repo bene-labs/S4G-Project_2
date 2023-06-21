@@ -9,9 +9,9 @@ public class Move : Action
     [SerializeField]
     private int range;
 
-    public override void Perform()
+    public override void Perform(Unit caster)
     {
-        base.Perform();
+        base.Perform(caster);
     }
 
     public override void Preview()
