@@ -12,14 +12,21 @@ public class Attack : Action
     [SerializeField]
     private int range;
 
-    public virtual List<float> GetTargets()
+    public virtual List<Unit> GetTargets()
     {
+        //default target is unit under the mouse cursor
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Physics.Raycast(ray.origin, ray.direction, out hit) && hit.transform.tag != "Obstacle")
         {
-            return null ; //new unit list
+            Unit target = hit.transform.GetComponent<Unit>();
+            if(target != null)
+            {
+                return new List<Unit>() { target };
+            }
         }
-        return null; //new empty unit list
+
+        return null;
     }
 }

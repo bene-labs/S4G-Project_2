@@ -27,9 +27,9 @@ public class Action : ScriptableObject
         return animationName;
     }
 
-    public virtual void Perform()
+    public virtual void Perform(Unit caster)
     {
-
+       
     }
 
     public virtual void Preview()
