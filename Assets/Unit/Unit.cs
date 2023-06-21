@@ -38,7 +38,7 @@ public class Unit : MonoBehaviour
 
     }
 
-    void Move(Vector3 targetPosition)
+    public void Move(Vector3 targetPosition)
     {
         m_navMeshAgent.destination = targetPosition;
     }
