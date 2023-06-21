@@ -9,8 +9,8 @@ public class Range : Attack
     [SerializeField]
     private GameObject projectile;
 
-    public override void Perform()
+    public override void Perform(Unit caster)
     {
-        base.Perform();
+        base.Perform(caster);
     }
 }
