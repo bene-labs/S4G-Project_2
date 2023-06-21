@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MoveAction
   m_EditorClassIdentifier: 
   animationName: Move
-  uses: 2
-  availibleActionPoints: 100
+  maxUses: 2
+  maxActionPoints: 100
   range: 100

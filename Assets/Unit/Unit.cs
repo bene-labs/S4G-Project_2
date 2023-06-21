@@ -20,9 +20,7 @@ public class Unit : MonoBehaviour
     [Header("Health")]
     [SerializeField] int maxHp = 10;
     private int currentHp;
-
-    private NavMeshAgent m_navMeshAgent;
-
+    
     [Header("Controls")]
     [SerializeField] private InputAction actionInput;
 
@@ -30,8 +28,12 @@ public class Unit : MonoBehaviour
     [SerializeField] private TextMeshProUGUI selectedActionText;
     [SerializeField] private TextMeshProUGUI remainingUsesText;
     
+    private NavMeshAgent m_navMeshAgent;
+    private NavMeshObstacle m_navMeshObstacle;
+    
     private void Awake()
     {
+        m_navMeshObstacle = GetComponent<NavMeshObstacle>();
         availableActions = new List<Action>();
         currentHp = maxHp;
         m_navMeshAgent = GetComponent<NavMeshAgent>();
@@ -65,12 +67,16 @@ public class Unit : MonoBehaviour
     {
         selectedActionText.enabled = false;
         remainingUsesText.enabled = false;
+        m_navMeshAgent.enabled = false;
+        m_navMeshObstacle.enabled = true;
     }
 
     public void Select()
     {
         selectedActionText.enabled = true;
         remainingUsesText.enabled = true;
+        m_navMeshAgent.enabled = true;
+        m_navMeshObstacle.enabled = false;
     }
     
     private void AnimateAction(string actionName)
