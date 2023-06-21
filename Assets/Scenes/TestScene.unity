@@ -179,18 +179,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PathFinder
       objectReference: {fileID: 0}
-    - target: {fileID: 7912764027109997087, guid: 2f36f1f07f7476a4585a2ecc4195e555, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7912764027109997087, guid: 2f36f1f07f7476a4585a2ecc4195e555, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 531f2975daf5a0946a55c8e44741356e, type: 2}
-    - target: {fileID: 7912764027109997087, guid: 2f36f1f07f7476a4585a2ecc4195e555, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 531f2975daf5a0946a55c8e44741356e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -625,42 +613,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1134805510 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3370745922230075219, guid: 5d00b1bf2365c224ebd794d018ff8214, type: 3}
-  m_PrefabInstance: {fileID: 7687716626260901300}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1134805516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134805510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35835410b14c1f043ba357683c734920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedAction: {fileID: 11400000, guid: 6522179d120c0ce488ab392417547cd1, type: 2}
-  maxHp: 10
-  actionInput:
-    m_Name: Action Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 97928cb5-22fd-42a5-b8ab-73ec84292ce0
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 09b0068f-a063-4e02-a99b-2274ccfbed42
-      m_Path: <Mouse>/leftButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Action Input
-      m_Flags: 0
-    m_Flags: 0
 --- !u!1001 &7687716626260901300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -720,8 +672,5 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3370745922230075219, guid: 5d00b1bf2365c224ebd794d018ff8214, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1134805516}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d00b1bf2365c224ebd794d018ff8214, type: 3}
