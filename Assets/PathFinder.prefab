@@ -54,7 +54,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 531f2975daf5a0946a55c8e44741356e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -156,4 +156,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   width: 1
+  heightOffset: 0
   moveRange: 1000
