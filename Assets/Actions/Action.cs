@@ -32,7 +32,7 @@ public class Action : ScriptableObject
         AfterPerform();
     }
 
-    public virtual void Preview()
+    public virtual void Preview(Unit caster)
     {
 
     }

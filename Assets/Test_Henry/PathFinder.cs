@@ -92,8 +92,9 @@ public class PathFinder : MonoBehaviour
     }
 
     // make sure displaypath() processed after calculatepath() in frame
-    public void DisplayPath() 
+    public void RenderPath() 
     {
+        lineRenderer.enabled = true;
         //AnimationCurve curve = new AnimationCurve(new Keyframe(0, 0.4f)
         //    , new Keyframe(arrowStartLength, 0.4f)
         //    , new Keyframe(arrowStartLength + 0.01f, 1f)
@@ -109,9 +110,9 @@ public class PathFinder : MonoBehaviour
     }
 
     //partially clear for performance?
-    private void ClearPath() 
+    public void ClearPath() 
     {
-        lineRenderer.SetPositions(new Vector3[0]);
+        lineRenderer.enabled = false;
         validPathPoints.Clear();
         invalidPathPoints.Clear();
     }
@@ -121,17 +122,6 @@ public class PathFinder : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetMouseButton(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100, groundLayer))
-            {
-                CalculatePath(transform.position, hit.point, moveRange);
-            }
-            DisplayPath();
-        }
 
-      
     }
 }

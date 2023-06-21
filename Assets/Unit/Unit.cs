@@ -29,13 +29,17 @@ public class Unit : MonoBehaviour
     {
         currentHp = maxHp;
         m_navMeshAgent = GetComponent<NavMeshAgent>();
-        actionInput.performed += PerformSelectedAction;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            PerformSelectedAction();
+        }
 
+        selectedAction.Preview(this);
     }
 
     public void Move(Vector3 targetPosition)
@@ -53,8 +57,9 @@ public class Unit : MonoBehaviour
 
     }
 
-    void PerformSelectedAction(InputAction.CallbackContext callbackContext)
+    void PerformSelectedAction()
     {
+        Debug.Log("test test");
         selectedAction.Perform(this);
     }
 
