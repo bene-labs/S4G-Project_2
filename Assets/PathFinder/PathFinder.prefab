@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3159504520324861803}
-  - component: {fileID: 7912764027109997087}
   - component: {fileID: 6111934059084042783}
-  m_Layer: 0
+  - component: {fileID: 7912764027109997087}
+  m_Layer: 3
   m_Name: PathFinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,8 +31,31 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6111934059084042783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6156442447074329262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3129068100a3599448abb4586cf086c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  validPathPoints: []
+  invalidPathPoints: []
+  lastMousePosition: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  validColor: {r: 0.21816085, g: 0.735849, b: 0.10065861, a: 0}
+  invalidColor: {r: 0.7830189, g: 0.114498034, b: 0.14655092, a: 0}
+  arrowSize: 0
+  lineWidth: 0
+  heightOffset: 0
 --- !u!120 &7912764027109997087
 LineRenderer:
   serializedVersion: 2
@@ -122,13 +145,13 @@ LineRenderer:
       atime5: 0
       atime6: 0
       atime7: 0
-      m_Mode: 0
-      m_ColorSpace: -1
+      m_Mode: 1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
-    alignment: 0
+    alignment: 1
     textureMode: 0
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
@@ -137,26 +160,3 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &6111934059084042783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6156442447074329262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3129068100a3599448abb4586cf086c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  validPathPoints: []
-  invalidPathPoints: []
-  lastMousePosition: 0
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  validColor: {r: 0.21816085, g: 0.735849, b: 0.10065861, a: 0}
-  invalidColor: {r: 0.7830189, g: 0.114498034, b: 0.14655092, a: 0}
-  arrowSize: 0
-  width: 0.2
-  heightOffset: 0

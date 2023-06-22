@@ -10,11 +10,9 @@ public class Action : ScriptableObject
     [SerializeField] protected int maxUses = 0;
     protected int uses = 0;
     public int Uses => uses;
-    [SerializeField] protected float maxActionPoints;
-    protected float availibleActionPoints;
 
     // todo: rework
-    protected bool isLocked = false;
+    protected bool isResolving = false;
 
     public bool Locked
     {
@@ -22,15 +20,14 @@ public class Action : ScriptableObject
         {
             if (value == false)
                 AfterPerform();
-            isLocked = value;
+            isResolving = value;
         }
-        get => isLocked;
+        get => isResolving;
     }
     
     public virtual void SetUp()
     {
         uses = maxUses;
-        availibleActionPoints = maxActionPoints;
     }
 
     public virtual void RestoreUse()
@@ -61,6 +58,6 @@ public class Action : ScriptableObject
 
     public bool IsUsable()
     {
-        return uses > 0 && availibleActionPoints > 0;
+        return uses > 0 /*&& availibleActionPoints > 0*/;
     }
 }

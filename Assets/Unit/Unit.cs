@@ -4,42 +4,48 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Unit : MonoBehaviour
 {
     [Header("Action")]
-    [SerializeField] private List<Action> availableActions;
-    [SerializeField] private Action selectedAction;
+    [SerializeField] private List<Action> actions;
+    private Action selectedAction;
     
     public delegate void OnSelect();
 
     public OnSelect onSelected;
 
+    // todo: move to seperate class
     [Header("Health")]
     [SerializeField] int maxHp = 10;
     private int currentHp;
-    
-    [Header("Controls")]
-    [SerializeField] private InputAction actionInput;
-
+   
+    // todo: encapsulate UI
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI selectedActionText;
     [SerializeField] private TextMeshProUGUI remainingUsesText;
     
-    private NavMeshAgent m_navMeshAgent;
-    private NavMeshObstacle m_navMeshObstacle;
+    private NavMeshAgent _navMeshAgent;
+    private NavMeshObstacle _navMeshObstacle;
     
     private void Awake()
     {
-        m_navMeshObstacle = GetComponent<NavMeshObstacle>();
-        availableActions = new List<Action>();
+        _navMeshObstacle = GetComponent<NavMeshObstacle>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+
         currentHp = maxHp;
-        m_navMeshAgent = GetComponent<NavMeshAgent>();
+
+        if (actions.Count == 0)
+        {
+            Debug.LogError("Assignment Error: Unit '" + gameObject.name + "' has no actions!");
+            return;
+        }
+
+        selectedAction = actions[0];
         selectedAction.SetUp();
-        if (!availableActions.Contains(selectedAction))
-            availableActions.Add(selectedAction);
     }
 
     private void Start()
@@ -49,15 +55,17 @@ public class Unit : MonoBehaviour
 
     public void SelectedUpdate()
     {
-        if (selectedAction.Locked && selectedAction.name == "Move")
+        // todo: rework
+        if (selectedAction.Locked && selectedAction is Move)
         {
-            if (m_navMeshAgent.remainingDistance <= 0.01f)
+            if (_navMeshAgent.remainingDistance <= 0.01f)
             {
                 selectedAction.Locked = false;
                 remainingUsesText.text = "Uses Left: " + selectedAction.Uses;
             }
         }
         
+
         if (Input.GetMouseButtonDown(0))
         {
             PerformSelectedAction();
@@ -68,24 +76,24 @@ public class Unit : MonoBehaviour
 
     public float Move(Vector3 targetPosition)
     {
-        m_navMeshAgent.destination = targetPosition;
-        return Vector3.Distance(m_navMeshAgent.transform.position, targetPosition);
+        _navMeshAgent.destination = targetPosition;
+        return Vector3.Distance(_navMeshAgent.transform.position, targetPosition);
     }
 
     public void Deselect()
     {
         selectedActionText.enabled = false;
         remainingUsesText.enabled = false;
-        m_navMeshAgent.enabled = false;
-        m_navMeshObstacle.enabled = true;
+        _navMeshAgent.enabled = false;
+        _navMeshObstacle.enabled = true;
     }
 
     public void Select()
     {
         selectedActionText.enabled = true;
         remainingUsesText.enabled = true;
-        m_navMeshAgent.enabled = true;
-        m_navMeshObstacle.enabled = false;
+        _navMeshAgent.enabled = true;
+        _navMeshObstacle.enabled = false;
     }
     
     private void AnimateAction(string actionName)
@@ -106,7 +114,7 @@ public class Unit : MonoBehaviour
 
     public void RestoreActions()
     {
-        foreach (var action in availableActions)
+        foreach (var action in actions)
         {
             action.RestoreUse();
         }
@@ -116,10 +124,9 @@ public class Unit : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        currentHp -= amount;
-        if (currentHp <= 0)
+        currentHp = Mathf.Clamp(currentHp - amount, 0, maxHp);
+        if (currentHp == 0)
         {
-            currentHp = 0;
             Die();
         }
     }
@@ -132,7 +139,7 @@ public class Unit : MonoBehaviour
 
     public bool HasUsableAction()
     {
-        foreach (var action in availableActions)
+        foreach (var action in actions)
         {
             if (action.IsUsable())
                 return true;

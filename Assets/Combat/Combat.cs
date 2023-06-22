@@ -10,8 +10,8 @@ public class Combat : MonoBehaviour
     
     public int turn = 0;
 
-    [SerializeField] private List<Party> parties;
-    [SerializeField] private Party activeParty;
+    private List<Party> parties;
+    private Party activeParty;
     private int activePartyIndex = 0;
 
     [Header("UI")]
@@ -27,9 +27,11 @@ public class Combat : MonoBehaviour
 
     private void Start()
     {
+        parties = new List<Party>();
         foreach (var party in GetComponentsInChildren<Party>())
         {
-            parties.Add(party);
+            if (party.gameObject.activeInHierarchy && party.enabled)
+                parties.Add(party);
         }
         StartNextTurn();
     }

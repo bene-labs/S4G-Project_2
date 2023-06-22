@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class Party : MonoBehaviour
 {
-    [SerializeField] private List<Unit> units;
-    [SerializeField] private Unit selectedUnit;
+    private List<Unit> units;
+    private Unit selectedUnit;
 
     [SerializeField] private TextMeshProUGUI activeText;
     

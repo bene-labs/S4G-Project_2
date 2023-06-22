@@ -5,24 +5,27 @@ public class Move : Action
 {
     [Header("Move")]
     [SerializeField] private int range;
+    [SerializeField] LayerMask groundLayer;
+    private float maxCharges;
+    private float charges;
 
     public override void SetUp()
     {
         base.SetUp();
-        maxActionPoints = range;
-        availibleActionPoints = maxActionPoints;
+        maxCharges = range;
+        charges = maxCharges;
         name = "Move";
     }
 
     public override bool Perform(Unit caster)
     {
-        if (isLocked)
+        if (isResolving)
             return false;
 
         if (PathFinder.Instance.IsPathValid())
         {
-            availibleActionPoints -= caster.Move(GetTarget());
-            isLocked = true;
+            charges -= caster.Move(GetTarget());
+            isResolving = true;
         } else
             return false;
         // todo: rework
@@ -47,7 +50,7 @@ public class Move : Action
     {
         //get point that's under the mouse
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray.origin, ray.direction, out var hit) && hit.transform.tag != "Obstacle")
+        if (Physics.Raycast(ray.origin, ray.direction, out var hit, Mathf.Infinity, groundLayer))
         {
             return hit.point;
         }
