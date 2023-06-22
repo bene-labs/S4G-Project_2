@@ -52,7 +52,10 @@ public class Unit : MonoBehaviour
         if (selectedAction.Locked && selectedAction.name == "Move")
         {
             if (m_navMeshAgent.remainingDistance <= 0.01f)
+            {
                 selectedAction.Locked = false;
+                remainingUsesText.text = "Uses Left: " + selectedAction.Uses;
+            }
         }
         
         if (Input.GetMouseButtonDown(0))
@@ -95,7 +98,7 @@ public class Unit : MonoBehaviour
 
         if (selectedAction.Perform(this))
         {
-            remainingUsesText.text = "Uses left: " + selectedAction.Uses;
+            //remainingUsesText.text = "Uses left: " + selectedAction.Uses;
             return true;
         }
         return false;
