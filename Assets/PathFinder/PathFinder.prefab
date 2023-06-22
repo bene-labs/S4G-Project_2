@@ -54,7 +54,7 @@ MonoBehaviour:
   validColor: {r: 0.21816085, g: 0.735849, b: 0.10065861, a: 0}
   invalidColor: {r: 0.7830189, g: 0.114498034, b: 0.14655092, a: 0}
   arrowSize: 0
-  lineWidth: 0
+  lineWidth: 0.1
   heightOffset: 0
 --- !u!120 &7912764027109997087
 LineRenderer:
@@ -146,7 +146,7 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 1
-      m_ColorSpace: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0

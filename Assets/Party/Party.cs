@@ -7,14 +7,14 @@ using UnityEngine;
 
 public class Party : MonoBehaviour
 {
-    private List<Unit> units;
+    private List<Unit> units = new List<Unit>();
     private Unit selectedUnit;
 
     [SerializeField] private TextMeshProUGUI activeText;
     
-    private void Start()
+    private void Awake()
     {
-        foreach (var unit in GetComponentsInChildren<Unit>())
+        foreach (var unit in transform.GetComponentsInChildren<Unit>())
         {
             units.Add(unit);
             unit.Deselect();
