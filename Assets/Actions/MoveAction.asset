@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationName: Move
   maxUses: 2
-  range: 5
+  range: 3
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

@@ -11,20 +11,29 @@ public class PathFinder : MonoBehaviour
     public List<Vector3> invalidPathPoints;
     public float lastMousePosition;
     private float validPathPercentage;
+    private float totalDistance;
 
     private NavMeshPath navMeshPath;
     private LineRenderer lineRenderer;
 
     [SerializeField] private LayerMask groundLayer;
 
+    [SerializeField] private float heightOffset;
+
+    [Header("Path Display")]
     [SerializeField] private Color validColor;
     [SerializeField] private Color invalidColor;
     private Gradient colorGradient;
 
+    private Material material;
+
     [SerializeField] private float arrowSize;
 
     [SerializeField] private float lineWidth;
-    [SerializeField] private float heightOffset;
+    [SerializeField] private float segmentDensity;
+    // range : [0,1]
+    [SerializeField] private float segmentThickness;
+    [SerializeField] private float speed;
 
 
     private void Awake()
@@ -43,9 +52,10 @@ public class PathFinder : MonoBehaviour
         {
             Instance = this;
         }
-        //lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
+        lineRenderer.material.SetFloat("_segmentThickness", segmentThickness);
+        lineRenderer.material.SetFloat("_speed", speed);
 
-        //lineRenderer.material.SetColor("_Color", validColor);
+
     }
 
     public void CalculatePath(Vector3 startPoint, Vector3 endPoint, float maxDistance)
@@ -59,13 +69,14 @@ public class PathFinder : MonoBehaviour
         if (NavMesh.CalculatePath(startPoint, endPoint, NavMesh.AllAreas, navMeshPath) == false)
             return;
 
-        float totalDistance = 0f;
+        totalDistance = 0f;
         float distanceStep = 0f;
 
         ClearPath();
 
         validPathPoints.Add(navMeshPath.corners[0]);
         validPathPercentage = 1f;
+        lineRenderer.material.SetColor("_color", validColor);
 
         for (int i = 1; i < navMeshPath.corners.Length; i++)
         {
@@ -94,6 +105,7 @@ public class PathFinder : MonoBehaviour
                     }
                 }
                 validPathPercentage = maxDistance/totalDistance;
+                lineRenderer.material.SetColor("_color", invalidColor);
                 break;
             }
         }
@@ -107,6 +119,8 @@ public class PathFinder : MonoBehaviour
     {
         lineRenderer.enabled = true;
         lineRenderer.widthMultiplier = lineWidth;
+
+        lineRenderer.material.SetFloat("_segmentDensity", segmentDensity * totalDistance * -1f);
 
         //AnimationCurve curve = new AnimationCurve(new Keyframe(0, 0.4f)
         //    , new Keyframe(arrowStartLength, 0.4f)
@@ -153,6 +167,10 @@ public class PathFinder : MonoBehaviour
     }
 
     public void EvaluateMousePosition(float mosuePosition) { }
+
+    private void SetShader(float pathLength)
+    {
+    }
 
 
     public void Update()

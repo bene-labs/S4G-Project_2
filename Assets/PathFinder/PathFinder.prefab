@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6111934059084042783
 MonoBehaviour:
@@ -51,11 +51,14 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  heightOffset: 0
   validColor: {r: 0.21816085, g: 0.735849, b: 0.10065861, a: 0}
   invalidColor: {r: 0.7830189, g: 0.114498034, b: 0.14655092, a: 0}
   arrowSize: 0
-  lineWidth: 0.1
-  heightOffset: 0
+  lineWidth: 0.3
+  segmentDensity: 3
+  segmentThickness: 0.5
+  speed: 2
 --- !u!120 &7912764027109997087
 LineRenderer:
   serializedVersion: 2
