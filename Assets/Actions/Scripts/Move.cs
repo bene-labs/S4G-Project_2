@@ -4,8 +4,8 @@ using UnityEngine;
 public class Move : Action
 {
     [Header("Move")]
-    [SerializeField] private int range;
-    [SerializeField] LayerMask groundLayer;
+    [SerializeField] protected int range;
+    [SerializeField] protected LayerMask groundLayer;
     private float maxCharges;
     private float charges;
 
