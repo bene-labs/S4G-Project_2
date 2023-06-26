@@ -46,6 +46,8 @@ public class Unit : MonoBehaviour
 
         selectedAction = actions[0];
         selectedAction.SetUp();
+
+        Deselect();
     }
 
     private void Start()

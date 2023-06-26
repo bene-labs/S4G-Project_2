@@ -17,7 +17,6 @@ public class Party : MonoBehaviour
         foreach (var unit in transform.GetComponentsInChildren<Unit>())
         {
             units.Add(unit);
-            unit.Deselect();
         }
     }
 

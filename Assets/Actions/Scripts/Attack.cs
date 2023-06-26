@@ -4,11 +4,29 @@ using UnityEngine;
 
 public class Attack : Action
 {
+    protected enum AttackType { MELEE, RANGE}
+
     [Header("Attack")]
     [SerializeField]
-    private int damage;
+    private AttackType attackType;
+    [SerializeField]
+    private int manaCost;
+
+    [Header(" ")]
+
+    [SerializeField]
+    private int minDamage;
+    [SerializeField]
+    private int maxDamage;
+    [SerializeField]
+    private int critDamage;
+
+    [Header(" ")]
+
     [SerializeField]
     private int range;
+    [SerializeField]
+    private int hitChance;
 
     protected virtual List<Unit> GetTargets()
     {
