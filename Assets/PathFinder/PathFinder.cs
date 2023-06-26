@@ -32,7 +32,9 @@ public class PathFinder : MonoBehaviour
     [SerializeField] private float lineWidth;
     [SerializeField] private float segmentDensity;
     // range : [0,1]
-    [SerializeField] private float segmentThickness;
+    [SerializeField] private float arrowWidth;
+    [SerializeField] private float arrowHeight;
+    [SerializeField] private float opacity;
     [SerializeField] private float speed;
 
 
@@ -42,7 +44,6 @@ public class PathFinder : MonoBehaviour
         navMeshPath = new NavMeshPath();
         lineRenderer = GetComponent<LineRenderer>();
 
-        //colorGradient.mode = GradientMode.Fixed;
         if (Instance != null && Instance != this)
         {
             Debug.LogError("Singleton pathfinder is already initialised!");
@@ -52,7 +53,9 @@ public class PathFinder : MonoBehaviour
         {
             Instance = this;
         }
-        lineRenderer.material.SetFloat("_segmentThickness", segmentThickness);
+        lineRenderer.material.SetFloat("_width", arrowWidth);
+        lineRenderer.material.SetFloat("_height", arrowHeight);
+        lineRenderer.material.SetFloat("_opacity", opacity);
         lineRenderer.material.SetFloat("_speed", speed);
 
 

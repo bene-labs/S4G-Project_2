@@ -24,15 +24,18 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: ed75a5ed8fc5afc40b00441f27cd15f8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses:
   - GRABPASS
+  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -92,11 +95,15 @@ Material:
     m_Ints: []
     m_Floats:
     - PixelSnap: 0
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
     - _BlendOp: 0
     - _BumpScale: 1
     - _CameraFadingEnabled: 0
     - _CameraFarFadeDistance: 2
     - _CameraNearFadeDistance: 1
+    - _CastShadows: 1
     - _ColorMode: 0
     - _Cull: 2
     - _Cutoff: 0.5
@@ -105,7 +112,7 @@ Material:
     - _DistortionEnabled: 0
     - _DistortionStrength: 1
     - _DistortionStrengthScaled: 0
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _EmissionEnabled: 0
     - _EnableExternalAlpha: 0
     - _FlipbookMode: 0
@@ -124,9 +131,16 @@ Material:
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
+    - _SrcBlend: 5
+    - _Surface: 1
     - _UVSec: 0
-    - _ZWrite: 1
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
+    - _distance: 0
+    - _segmentDensity: 0
+    - _segmentThickness: 0
+    - _speed: 0
     m_Colors:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -135,4 +149,5 @@ Material:
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
+    - _color: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
